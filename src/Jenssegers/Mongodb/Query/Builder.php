@@ -16,7 +16,7 @@ class Builder extends BaseBuilder {
      * Last cursor
      * @var \MongoCursor
      */
-    protected $cursor;
+    public $cursor;
 
     /**
      * The database collection.
