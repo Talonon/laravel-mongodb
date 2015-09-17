@@ -13,9 +13,15 @@ use MongoRegex;
 class Builder extends BaseBuilder {
 
     /**
+     * Last cursor
+     * @var \MongoCursor
+     */
+    protected $cursor;
+
+    /**
      * The database collection.
      *
-     * @var MongoCollection
+     * @var \MongoCollection
      */
     protected $collection;
 
@@ -158,6 +164,8 @@ class Builder extends BaseBuilder {
      */
     public function getFresh($columns = [])
     {
+        $this->cursor = null;
+
         // If no columns have been specified for the select statement, we will set them
         // here to either the passed columns, or the standard default of retrieving
         // all of the columns on the table using the "wildcard" column character.
@@ -295,6 +303,9 @@ class Builder extends BaseBuilder {
             if ($this->offset)  $cursor->skip($this->offset);
             if ($this->limit)   $cursor->limit($this->limit);
             if ($this->hint)    $cursor->hint($this->hint);
+
+            // Make the cursor available. May not be best implementation but suits my needs for now.
+            $this->cursor = $cursor;
 
             // Return results as an array with numeric keys
             return iterator_to_array($cursor, false);
