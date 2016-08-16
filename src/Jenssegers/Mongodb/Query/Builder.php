@@ -162,7 +162,7 @@ class Builder extends BaseBuilder {
      * @param  array  $columns
      * @return array|static[]
      */
-    public function getFresh($columns = [])
+    public function getFresh($columns = [], $getCursor = false)
     {
         $this->cursor = null;
 
@@ -306,6 +306,10 @@ class Builder extends BaseBuilder {
 
             // Make the cursor available. May not be best implementation but suits my needs for now.
             $this->cursor = $cursor;
+
+            if ($getCursor) {
+                return $cursor;
+            }
 
             // Return results as an array with numeric keys
             return iterator_to_array($cursor, false);
