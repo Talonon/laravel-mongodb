@@ -102,7 +102,7 @@ class Connection extends \Illuminate\Database\Connection {
     /**
      * Get the MongoDB database object.
      *
-     * @return  MongoDB
+     * @return  \MongoDB
      */
     public function getMongoDB()
     {
